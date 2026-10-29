@@ -1,81 +1,56 @@
-# LAB6 — Spring Boot REST Calculator
+# SEG3502 — Lab 6
 
-A Spring Boot REST API exposing `add`, `subtract`, `multiply` and `divide` on two numeric
-operands, documented with OpenAPI 3 (springdoc) and browsable through Swagger UI.
+## Spring Boot Kotlin REST Calculator
 
-- **Stack:** Kotlin 2.3.21, Spring Boot 4.1.2, Gradle 9.8.2 wrapper, Java 20
-- **Project root:** `Spring_Boot_RestCalculator/`
+**Étudiants :**
+* Andrianina Rakotobe
+* Darcy Joel-Kabura
 
-## Running
+---
 
+## How to Run
+
+All commands are run from the `Spring_Boot_RestCalculator/` folder.
+
+### Run the Application
+Start the local development server:
 ```bash
-cd Spring_Boot_RestCalculator
-./gradlew bootRun          # Windows: .\gradlew.bat bootRun
+./gradlew bootRun
+```
+*Open [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) in your browser to view and try the API.*
+
+### Run the Tests
+Execute the unit tests (test report output is found in './build/reports/tests/test/index.html'):
+```bash
+./gradlew test
 ```
 
-The app listens on `http://localhost:8080`.
+---
 
-## Endpoints
+## API Endpoints
 
-All operations are `GET` requests taking two query parameters, `a` and `b`.
+Each operation is a `GET` taking two query parameters, `a` and `b` :
 
-| Operation | Endpoint |
-| --- | --- |
-| Addition | `GET /api/calculator/add?a=5&b=3` |
-| Subtraction | `GET /api/calculator/subtract?a=5&b=3` |
-| Multiplication | `GET /api/calculator/multiply?a=5&b=3` |
-| Division | `GET /api/calculator/divide?a=6&b=3` |
-
-### Success — `200 OK`
+* `/api/calculator/add`
+* `/api/calculator/subtract`
+* `/api/calculator/multiply`
+* `/api/calculator/divide`
 
 ```bash
 curl "http://localhost:8080/api/calculator/add?a=5&b=3"
 ```
-
 ```json
 { "operation": "add", "a": 5.0, "b": 3.0, "result": 8.0 }
 ```
 
-### Error — `400 Bad Request`
-
-Returned on division by zero, a non-numeric operand, or a missing operand.
-
-```bash
-curl -i "http://localhost:8080/api/calculator/divide?a=5&b=0"
-```
-
+*A division by zero, a missing operand, or a non-numeric operand returns `400` :*
 ```json
 { "status": 400, "error": "Bad Request", "message": "Division by zero is not allowed" }
 ```
 
-## OpenAPI documentation
+---
 
-| Resource | URL |
-| --- | --- |
-| Swagger UI | <http://localhost:8080/swagger-ui.html> |
-| OpenAPI JSON | <http://localhost:8080/v3/api-docs> |
+## OpenAPI Documentation
 
-## Tests
-
-```bash
-cd Spring_Boot_RestCalculator
-./gradlew test             # Windows: .\gradlew.bat test
-```
-
-- `CalculatorServiceTest` — arithmetic logic and the zero-divisor guard
-- `CalculatorControllerTest` — HTTP contract for all four endpoints plus the `400` error body
-- `SpringBootRestCalculatorApplicationTests` — application context wiring
-
-## Layout
-
-```
-src/main/kotlin/seg3x02/Spring_Boot_RestCalculator/
-├── SpringBootRestCalculatorApplication.kt
-├── config/OpenApiConfig.kt              # OpenAPI title / version / description
-├── controller/CalculatorController.kt   # the four endpoints + OpenAPI annotations
-├── dto/CalculationResponse.kt           # success payload
-├── dto/ErrorResponse.kt                 # error payload
-├── exception/DivisionByZeroException.kt
-├── exception/GlobalExceptionHandler.kt  # maps failures to 400 + ErrorResponse
-└── service/CalculatorService.kt         # arithmetic, free of web concerns
-```
+* Swagger UI — [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+* OpenAPI JSON — [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
