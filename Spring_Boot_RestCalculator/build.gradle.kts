@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	kotlin("jvm") version "2.3.21"
 	kotlin("plugin.spring") version "2.3.21"
@@ -8,10 +10,10 @@ plugins {
 group = "seg3x02"
 version = "0.0.1-SNAPSHOT"
 
+// Target Java 17 bytecode so the project builds and runs on any JDK 17 or greater.
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(20)
-	}
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -30,6 +32,7 @@ dependencies {
 
 kotlin {
 	compilerOptions {
+		jvmTarget = JvmTarget.JVM_17
 		freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
 	}
 }

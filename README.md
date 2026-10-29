@@ -8,6 +8,15 @@
 
 ---
 
+## Prerequisites
+
+* **Java 17 or greater** (JDK) — the project compiles to Java 17 bytecode.
+* No Gradle install is needed; the included wrapper (`./gradlew`) handles it.
+
+*Check your version with `java -version`.*
+
+---
+
 ## How to Run
 
 All commands are run from the `Spring_Boot_RestCalculator/` folder.
